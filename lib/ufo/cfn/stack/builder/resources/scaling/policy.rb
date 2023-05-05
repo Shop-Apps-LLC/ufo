@@ -21,6 +21,10 @@ module Ufo::Cfn::Stack::Builder::Resources::Scaling
       conf[:ScaleInCooldown] = autoscaling.scale_in_cooldown if autoscaling.scale_in_cooldown
       conf[:ScaleOutCooldown] = autoscaling.scale_out_cooldown if autoscaling.scale_out_cooldown
 
+      if autoscaling.resource_label && autoscaling.predefined_metric_type == "ALBRequestCountPerTarget"
+        attrs[:Properties][:TargetTrackingScalingPolicyConfiguration][:PredefinedMetricSpecification][:ResourceLabel] =  autoscaling.resource_label
+      end
+
       attrs
     end
   end
