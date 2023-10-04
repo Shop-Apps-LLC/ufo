@@ -72,6 +72,10 @@ class Ufo::Cfn::Stack::Builder::Resources
         end
       end
 
+      ecs = Ufo.config.ecs
+      
+      props[:HealthCheckGracePeriodSeconds] = ecs.health_check_grace_period_seconds if ecs.health_check_grace_period_seconds
+
       props
     end
 
